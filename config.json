@@ -1,0 +1,12 @@
+{
+  "PORT" : 3002,
+  "MASTER_URI" : "http://localhost:3001",
+  "transport" : {
+    "host": "smtp.mailtrap.io",
+    "port": 2525,
+    "auth": {
+      "user": "6d8705b187786e",
+      "pass": "54549421d13eaa"
+    }
+  }
+}
