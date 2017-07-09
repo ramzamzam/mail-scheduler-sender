@@ -14,7 +14,7 @@ const transport = mailer.createTransport(config.transport);
  */
 function networkLagMiddleware(req, res, next) {
     const time = (Math.random() * 3000).toFixed(0);
-    setTimeout(function() {
+    setTimeout(function () {
         return next();
     }, time);
 }
@@ -30,25 +30,25 @@ app.post('/send', (req, res) => {
         text: text
     };
     transport.sendMail(mail, (err) => {
-        if(err) return res.status(400).end(err.toString());
+        if (err) return res.status(400).end(err.toString());
         return res.status(200).end();
     });
 });
 
 const args = process.argv.slice(2); //drop node index
-const httpPort = args[0] || config.PORT
+const httpPort = args[0] || config.PORT;
 
-app.listen(httpPort, function(err) {
-    if(err) console.error(err);
+app.listen(httpPort, function (err) {
+    if (err) console.error(err);
     console.log(`sending_agent listening on port ${httpPort}`);
     const options = {
-        url : `${config.MASTER_URI}/register/sender`,
+        url: `${config.MASTER_URI}/register/sender`,
         headers: {
-            'x-port' : httpPort
+            'x-port': httpPort
         }
     };
     request(options, function (err) {
-        if(err) {
+        if (err) {
             console.error('error connecting to master');
             console.error(err);
             return;
