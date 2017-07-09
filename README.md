@@ -25,4 +25,6 @@ Sample configuration file:
 
 "PORT" is default tokenizer port, whet it is started with command node index <PORT> the port passed as argument is used.
 
+"transport" is options for nodemailer transport.
+
 "MASTER_URI" is URI of master server.
