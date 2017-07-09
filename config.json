@@ -1,6 +1,6 @@
 {
-  "PORT" : 3002,
-  "MASTER_URI" : "http://localhost:3001",
+  "PORT" : 3003,
+  "MASTER_URI" : "http://localhost:3002",
   "transport" : {
     "host": "smtp.mailtrap.io",
     "port": 2525,
