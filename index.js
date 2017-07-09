@@ -9,6 +9,9 @@ const app = express();
 const mailer = require('nodemailer');
 const transport = mailer.createTransport(config.transport);
 
+/**
+ * Emulates network delay
+ */
 function networkLagMiddleware(req, res, next) {
     const time = (Math.random() * 3000).toFixed(0);
     setTimeout(function() {
@@ -24,7 +27,6 @@ app.post('/send', (req, res) => {
     const {email, text} = req.body;
     const mail = {
         to: email,
-        from: 'yevheniy.miropolets@gmail.com',
         text: text
     };
     transport.sendMail(mail, (err) => {
@@ -33,13 +35,16 @@ app.post('/send', (req, res) => {
     });
 });
 
-app.listen(config.PORT, function(err) {
+const args = process.argv.slice(2); //drop node index
+const httpPort = args[0] || config.PORT
+
+app.listen(httpPort, function(err) {
     if(err) console.error(err);
-    console.log(`sending_agent listening on port ${config.PORT}`);
+    console.log(`sending_agent listening on port ${httpPort}`);
     const options = {
         url : `${config.MASTER_URI}/register/sender`,
         headers: {
-            'x-port' : config.PORT
+            'x-port' : httpPort
         }
     };
     request(options, function (err) {
